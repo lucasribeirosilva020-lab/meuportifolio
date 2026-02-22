@@ -83,7 +83,7 @@ export default function PartnersSection() {
                                     fontWeight: 800,
                                     letterSpacing: '0.18em',
                                     textTransform: 'uppercase',
-                                    color: 'rgba(255,140,0,0.6)',
+                                    color: 'var(--accent-primary)',
                                     padding: '0 2.5rem',
                                     whiteSpace: 'nowrap',
                                     userSelect: 'none'
@@ -103,7 +103,7 @@ export default function PartnersSection() {
                                     fontWeight: 800,
                                     letterSpacing: '0.18em',
                                     textTransform: 'uppercase',
-                                    color: 'rgba(255,140,0,0.6)',
+                                    color: 'var(--accent-primary)',
                                     padding: '0 2.5rem',
                                     whiteSpace: 'nowrap',
                                     userSelect: 'none'
