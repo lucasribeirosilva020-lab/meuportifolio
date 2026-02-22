@@ -25,26 +25,31 @@ export default function ParticleGlobe() {
                     0%   { transform: rotateY(0deg)   rotateX(15deg) rotateZ(-10deg); }
                     100% { transform: rotateY(360deg) rotateX(15deg) rotateZ(-10deg); }
                 }
-                @media (max-width: 768px) {
-                    .globe-wrapper { display: none !important; }
+                .globe-wrapper {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                    perspective: 1200px;
+                    z-index: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                    opacity: 0.35;
+                }
+                @media (min-width: 769px) {
+                    .globe-wrapper {
+                        left: 70%;
+                        transform: translate(-50%, -50%);
+                        opacity: 0.8;
+                    }
                 }
             `}</style>
-            <div className="globe-wrapper" style={{
-                position: 'absolute',
-                top: '50%',
-                left: '70%',
-                transform: 'translate(-50%, -50%)',
-                pointerEvents: 'none',
-                perspective: '1200px',
-                zIndex: -1,
-                width: '100vw',
-                height: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                opacity: 0.8
-            }}>
+            <div className="globe-wrapper">
                 <div style={{
                     position: 'relative',
                     width: '0',
