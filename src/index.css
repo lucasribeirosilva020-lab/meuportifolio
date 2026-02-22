@@ -136,3 +136,66 @@ button {
   width: 100%;
   opacity: 0.3;
 }
+
+/* ── Mobile Responsive ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .section-padding {
+    padding: 4rem 0;
+  }
+
+  /* Hero */
+  #inicio {
+    padding-top: 100px !important;
+    min-height: auto !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .heading-lg {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .heading-md {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+
+  .text-lead {
+    font-size: 1rem;
+  }
+
+  /* Buttons: stack on mobile */
+  #inicio .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Navbar */
+  header nav {
+    display: none;
+  }
+
+  /* Services grid: single column */
+  #servicos>div>div:last-child {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Partners section screenshots: single column */
+  #resultados .glass {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading-lg {
+    font-size: clamp(1.75rem, 9vw, 2.5rem);
+  }
+
+  .btn {
+    font-size: 0.8rem;
+    padding: 0.75rem 1rem;
+  }
+}

@@ -8,7 +8,14 @@ const screenshots = [
     { src: '/whatsapp-3.png', label: 'Site Institucional' },
 ];
 
-const partners = ["CLINICPRO", "VITAFLOW", "SOLARTECH", "REDEMAX", "PRIMELOG"];
+const partners = [
+    "CEU PSICOLOGIA",
+    "CLINICPRO",
+    "CLINICA TEAMPARAR",
+    "PROTOCOLO PAC",
+    "VITAFLOW",
+];
+
 
 export default function PartnersSection() {
     const [lightbox, setLightbox] = useState(null);
@@ -55,21 +62,59 @@ export default function PartnersSection() {
                     </p>
                 </motion.div>
 
-                {/* Partners marquee */}
-                <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '3rem', marginBottom: '4rem', opacity: 0.4 }}>
-                    {partners.map((partner, i) => (
-                        <motion.div
-                            key={partner}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                            style={{ fontSize: '1.3rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-secondary)' }}
-                        >
-                            {partner}
-                        </motion.div>
-                    ))}
+                {/* Dual-row animated marquee */}
+                <div style={{ marginBottom: '4rem' }}>
+                    <style>{`
+                        @keyframes marquee-ltr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+                        @keyframes marquee-rtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+                        .marquee-track { display: flex; width: max-content; }
+                        .marquee-row { overflow: hidden; mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); margin-bottom: 1rem; }
+                        .marquee-row:hover .marquee-track { animation-play-state: paused; }
+                        .marquee-ltr .marquee-track { animation: marquee-ltr 25s linear infinite; }
+                        .marquee-rtl .marquee-track { animation: marquee-rtl 25s linear infinite; }
+                    `}</style>
+
+                    {/* Row 1: right to left */}
+                    <div className="marquee-row marquee-ltr">
+                        <div className="marquee-track">
+                            {[...partners, ...partners, ...partners, ...partners].map((p, i) => (
+                                <span key={i} style={{
+                                    fontSize: '1.1rem',
+                                    fontWeight: 800,
+                                    letterSpacing: '0.18em',
+                                    textTransform: 'uppercase',
+                                    color: 'rgba(255,140,0,0.6)',
+                                    padding: '0 2.5rem',
+                                    whiteSpace: 'nowrap',
+                                    userSelect: 'none'
+                                }}>
+                                    {p} <span style={{ color: 'rgba(255,140,0,0.25)', margin: '0 0.5rem' }}>✦</span>
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Row 2: left to right */}
+                    <div className="marquee-row marquee-rtl">
+                        <div className="marquee-track">
+                            {[...partners, ...partners, ...partners, ...partners].map((p, i) => (
+                                <span key={i} style={{
+                                    fontSize: '1.1rem',
+                                    fontWeight: 800,
+                                    letterSpacing: '0.18em',
+                                    textTransform: 'uppercase',
+                                    color: 'rgba(255,140,0,0.6)',
+                                    padding: '0 2.5rem',
+                                    whiteSpace: 'nowrap',
+                                    userSelect: 'none'
+                                }}>
+                                    {p} <span style={{ color: 'rgba(255,140,0,0.25)', margin: '0 0.5rem' }}>✦</span>
+                                </span>
+                            ))}
+                        </div>
+                    </div>
                 </div>
+
 
                 {/* Screenshot cards */}
                 <div style={{
