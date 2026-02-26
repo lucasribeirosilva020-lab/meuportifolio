@@ -1,22 +1,34 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+
+function useIsMobile() {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 769);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
+    return isMobile;
+}
 
 export default function ParticleGlobe() {
+    const isMobile = useIsMobile();
+    const numParticles = isMobile ? 80 : 300;
+    const size = isMobile ? 160 : 350;
+
     const particles = useMemo(() => {
-        const numParticles = 300;
         const pts = [];
         const phi = Math.PI * (3 - Math.sqrt(5));
-
         for (let i = 0; i < numParticles; i++) {
             const y = 1 - (i / (numParticles - 1)) * 2;
             const radius = Math.sqrt(1 - y * y);
             const theta = phi * i;
             const x = Math.cos(theta) * radius;
             const z = Math.sin(theta) * radius;
-            const size = 350;
             pts.push({ x: x * size, y: y * size, z: z * size });
         }
         return pts;
-    }, []);
+    }, [numParticles, size]);
 
     return (
         <>
@@ -54,11 +66,11 @@ export default function ParticleGlobe() {
                     position: 'relative',
                     width: '0',
                     height: '0',
-                    transformStyle: 'preserve-3d',
+                    transformStyle: isMobile ? 'flat' : 'preserve-3d',
                     animation: 'rotateGlobeAnim 50s linear infinite'
                 }}>
                     {particles.map((p, i) => {
-                        const depthOpacity = Math.max(0.1, (p.z + 350) / 700);
+                        const depthOpacity = Math.max(0.1, (p.z + size) / (size * 2));
                         return (
                             <div
                                 key={i}
@@ -66,9 +78,11 @@ export default function ParticleGlobe() {
                                     position: 'absolute',
                                     top: p.y,
                                     left: p.x,
-                                    transform: `translate3d(0, 0, ${p.z}px)`,
-                                    width: '3px',
-                                    height: '3px',
+                                    transform: isMobile
+                                        ? 'none'
+                                        : `translate3d(0, 0, ${p.z}px)`,
+                                    width: isMobile ? '2px' : '3px',
+                                    height: isMobile ? '2px' : '3px',
                                     background: i % 3 === 0 ? '#ffffff' : 'var(--accent-primary)',
                                     borderRadius: '50%',
                                     opacity: depthOpacity,
